@@ -1,6 +1,7 @@
 package trees;
 
 import java.io.IOException;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -11,25 +12,30 @@ public class MyBinaryTreeTest {
 	private static Node<Integer> binaryTree;
 	
 	public static void main(String[] args){
-		if(args.length>0)
-			System.out.print(args[0]);
-		
 		
 		//generateRandomBinaryTreeWithIntegerValues(Integer.parseInt(args[0]));
 //		binaryTree.setDepth(0);
 		//binaryTree.printDepth();
 //		System.out.println("MAX DEPTH:" + binaryTree.getMaxDepth());
-		
+		long startTime = System.currentTimeMillis();
+
+		System.out.println("STARTING TO GENERATE TREE");		
 		binaryTree = new Node<Integer>(0);
 		binaryTree.createIntValuesBalancedBinaryTree(binaryTree,Integer.parseInt(args[0]));
-		
-		HashMap<Integer,ArrayList<Node<Integer>>> map = binaryTree.getNodesByDepth(binaryTree);
-		printNodesByDepth(map);
-		map.clear();
-		map = binaryTree.getNodesByDepthBFS(binaryTree);
-		System.out.println("PRINTINT NODES BY DEPTH BFS---------");
-		printNodesByDepth(map);
-		System.out.println("MAX DEPTH:" + binaryTree.getMaxDepth());
+	    long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+		System.out.println("BINARY TREE GENERATION IS DONE IN " +elapsedTime + "ms");
+	    
+//		HashMap<Integer,ArrayList<Node<Integer>>> map = binaryTree.getNodesByDepth(binaryTree);
+//		printNodesByDepth(map);
+//		map.clear();
+		startTime = System.currentTimeMillis();
+		HashMap<Integer,ArrayList<Node<Integer>>> map = binaryTree.getNodesByDepthBFS(binaryTree);
+	    stopTime = System.currentTimeMillis();
+	    elapsedTime = stopTime - startTime;
+		System.out.println("GETTING NODES BY DFB---------" +elapsedTime + "ms");
+//		printNodesByDepth(map);
+		//System.out.println("MAX DEPTH:" + binaryTree.getMaxDepth());
 	}
 
 	private static void printNodesByDepth(

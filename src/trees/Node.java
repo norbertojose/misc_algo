@@ -1,7 +1,9 @@
 package trees;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -48,8 +50,92 @@ public class Node<T extends Object> {
 		return toRet;
 	}
 	
+	public  HashMap<Integer,ArrayList<Node<T>>> getNodesByDepthBFS(Node<T> rootNode){
+		HashSet<Node<T>> visitedNodes= new HashSet<Node<T>>();
+		LinkedList<Node<T>> nextToVisit = new LinkedList<Node<T>>();
+		HashMap<Integer,ArrayList<Node<T>>> nodesByDepth = new HashMap<Integer, ArrayList<Node<T>>>();
+		rootNode.setDepth(0);
+		ArrayList<Node<T>> depthArray = new ArrayList<Node<T>>();
+		depthArray.add(rootNode);
+		nextToVisit.add(rootNode);
+		
+		while(nextToVisit.size()>0)
+		{
+			Node<T> currentNode = nextToVisit.remove();
+			if(visitedNodes.contains(currentNode))
+				continue;
+			else
+				addNodeByDepthHash(nodesByDepth,currentNode);
+			
+			if(currentNode.getNextLeft()!=null)
+			{
+				currentNode.getNextLeft().setDepth(currentNode.getDepth()+1);
+				nextToVisit.add(currentNode.getNextLeft());
+			}
+			if(currentNode.getNextRigth()!=null)
+			{
+				currentNode.getNextRigth().setDepth(currentNode.getDepth()+1);
+				nextToVisit.add(currentNode.getNextRigth());
+			}
+		}
+		return nodesByDepth;
+	}
+	
+	
+	public void createIntValuesBalancedBinaryTree(Node<Integer> rootNode,int size)
+	{
+		HashSet<Node<Integer>> visitedNodes= new HashSet<Node<Integer>>();
+		LinkedList<Node<Integer>> nextToVisit = new LinkedList<Node<Integer>>();
+		nextToVisit.add(rootNode);
+		int creationIdIndex = 1;
+		
+		while(nextToVisit.size()>0)
+		{
+			Node<Integer> currentNode = nextToVisit.remove();
+			
+			if(visitedNodes.contains(currentNode))
+				continue;
+			
+			visitedNodes.add(currentNode);
+			
+			if(size>0)
+			{
+				currentNode.setNextLeft(new Node<Integer>(creationIdIndex));
+				nextToVisit.add(currentNode.getNextLeft());
+				creationIdIndex++;
+				size--;
+			}
+			else
+				break;
+		
+			if(size>0)
+			{
+				currentNode.setNextRigth(new Node<Integer>(creationIdIndex));
+				nextToVisit.add(currentNode.getNextRigth());
+				creationIdIndex++;
+				size--;
+			}
+			else
+				break;
+		}
+	}
+
+	private void addNodeByDepthHash(HashMap<Integer, ArrayList<Node<T>>> depthHash, Node<T> node) {
+//		System.out.println("adding node to depth: " +node.getDepth()+"with value: " + node.getValue());
+		int currentDepth = node.getDepth();
+		if(depthHash.containsKey(currentDepth))
+		{
+			depthHash.get(currentDepth).add(node);
+		}else
+		{
+			ArrayList<Node<T>> listAtDepth = new ArrayList<Node<T>>();
+			listAtDepth.add(node);
+			depthHash.put(currentDepth,listAtDepth);
+		}
+	}
+	
 	private void addNodeToDepth(HashMap<Integer, ArrayList<Node<T>>> depthHash, Node<T> node) {
-		System.out.println("adding node to depth: " +node.getDepth()+"with value: " + node.getValue());
+//		System.out.println("adding node to depth: " +node.getDepth()+"with value: " + node.getValue());
 		int currentDepth = node.getDepth();
 		if(depthHash.containsKey(currentDepth))
 		{
@@ -73,7 +159,7 @@ public class Node<T extends Object> {
 	public int getMaxDepth(){
 
 		int maxDepth = this.depth;
-		System.out.println("calculating max depth:" + this.value);
+//		System.out.println("calculating max depth:" + this.value);
 		if(this.nextLeft!=null)
 			maxDepth = Math.max(this.depth,this.nextLeft.getMaxDepth());
 		
@@ -81,6 +167,7 @@ public class Node<T extends Object> {
 			maxDepth = Math.max(maxDepth,this.nextRigth.getMaxDepth());
 		return maxDepth;
 	}
+
 	
 	public void printInOrderTraversal(){
 		System.out.println("Node"+value.toString());
@@ -96,7 +183,7 @@ public class Node<T extends Object> {
 		}
 	}
 	
-	public Node<?> getNextRigth() {
+	public Node<T> getNextRigth() {
 		return nextRigth;
 	}
 	
@@ -104,7 +191,7 @@ public class Node<T extends Object> {
 		this.nextRigth = nextRigth;
 	}
 	
-	public Node<?> getNextLeft() {
+	public Node<T> getNextLeft() {
 		return nextLeft;
 	}
 	

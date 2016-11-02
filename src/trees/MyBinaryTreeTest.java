@@ -34,7 +34,7 @@ public class MyBinaryTreeTest {
 	    stopTime = System.currentTimeMillis();
 	    elapsedTime = stopTime - startTime;
 		System.out.println("GETTING NODES BY DFB---------" +elapsedTime + "ms");
-//		printNodesByDepth(map);
+		printNodesByDepth(map);
 		//System.out.println("MAX DEPTH:" + binaryTree.getMaxDepth());
 	}
 
@@ -43,6 +43,7 @@ public class MyBinaryTreeTest {
 		for(int key: map.keySet())
 		{
 			System.out.print("DEPTH " + key+":  ");
+			System.out.print(map.get(key).size() + " wide ");
 			System.out.print("  [");
 			for(Node<Integer> node:map.get(key))
 			{
@@ -51,7 +52,6 @@ public class MyBinaryTreeTest {
 				else
 					System.out.print(node.getValue()+" , ");
 			}
-//			System.out.print(" ]  ");
 				
 			System.out.println("");
 		}

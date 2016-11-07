@@ -1,11 +1,9 @@
 package trees;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Node<T extends Object> {
 	private Node<T> nextRigth=null;

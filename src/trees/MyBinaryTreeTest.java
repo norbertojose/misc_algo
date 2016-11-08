@@ -22,7 +22,7 @@ public class MyBinaryTreeTest {
 	    stopTime = System.currentTimeMillis();
 	    elapsedTime = stopTime - startTime;
 		System.out.println("GETTING NODES BY DFB---------" +elapsedTime + "ms");
-		//printNodesByDepth(map);
+		printNodesByDepth(map);
 	}
 
 	private static void printNodesByDepth(HashMap<Integer, ArrayList<Node<Integer>>> map) {

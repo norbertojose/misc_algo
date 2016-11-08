@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import boardGame.DiceBoardGame;
 import boardGame.Vertex;
-import trees.MyBinaryTreeTest;
 
 
 public class main {
@@ -13,7 +12,7 @@ public class main {
 		
 		ArrayList<Long> allPossibleWays = new ArrayList<Long>();
 		
-		for(int i=0;i<611;i++)
+		for(int i=0;i<21;i++)
 		{
 			if(i<7)
 			{
@@ -33,19 +32,6 @@ public class main {
 				System.out.println("For N = "+i+" --- "+newPosibilities);
 				allPossibleWays.add((long) (newPosibilities & 0x00000000ffffffffL));
 			}
-		}
-	}
-
-	private static void printWays(HashSet<LinkedList<Vertex<Integer>>> paths) {
-		for(LinkedList<Vertex<Integer>> path:paths)
-		{
-			System.out.print("Path:[");
-			for(Vertex<Integer> vertex: path)
-			{
-				System.out.print(vertex.getValue()+", ");
-			}
-			System.out.print("]");
-			System.out.println("");
 		}
 	}
 }

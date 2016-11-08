@@ -11,7 +11,7 @@ public class main {
 	
 	public static void main(String[] args) {
 		
-		ArrayList<Integer> allPossibleWays = new ArrayList<Integer>();
+		ArrayList<Long> allPossibleWays = new ArrayList<Long>();
 		
 		for(int i=0;i<611;i++)
 		{
@@ -20,18 +20,18 @@ public class main {
 				DiceBoardGame diceGame = new DiceBoardGame();
 				diceGame.createDiceBoardGame(i);
 				HashSet<LinkedList<Vertex<Integer>>> paths = diceGame.getFirstSixVertexPossiblePaths();
-				allPossibleWays.add(paths.size());
+				allPossibleWays.add((long) paths.size());
 				System.out.println("For N = "+i+" --- "+paths.size());
 			}
 			else
 			{
-				int newPosibilities = 0;
+				long newPosibilities = 0;
 				for(i=allPossibleWays.size()-6;i<allPossibleWays.size();i++)
 				{
 					newPosibilities+=allPossibleWays.get(i);
 				}
 				System.out.println("For N = "+i+" --- "+newPosibilities);
-				allPossibleWays.add(newPosibilities);
+				allPossibleWays.add((long) (newPosibilities & 0x00000000ffffffffL));
 			}
 		}
 	}
